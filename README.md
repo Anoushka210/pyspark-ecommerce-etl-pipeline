@@ -1,4 +1,4 @@
-# Scalable E-Commerce ETL Pipeline using PySpark (100K+ Orders)
+# E-Commerce Sales Analytics ETL Pipeline
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue)
 ![PySpark](https://img.shields.io/badge/PySpark-3.x-orange)
@@ -8,6 +8,11 @@
 An end-to-end PySpark ETL pipeline built on the Brazilian E-Commerce
 Public Dataset (Olist) with 100k+ orders across multiple relational tables.
 
+## Kaggle Notebook
+
+Full pipeline with visualisations:
+[View on Kaggle](https://www.kaggle.com/code/anoushkakarra/notebookac5e606aaf)
+
 ## Key Features
 
 - Modular ETL architecture — each stage is a separate, independently runnable script
@@ -15,21 +20,22 @@ Public Dataset (Olist) with 100k+ orders across multiple relational tables.
 - Feature engineering for delivery performance — actual vs estimated delivery, late order flagging
 - Master dataset persisted in Parquet format for optimised columnar storage and fast downstream reads
 - Repartitioned output for efficient distributed writes across large datasets
+- End-to-end visualisations of business KPIs using Matplotlib
 
 ## Project Structure
 ```
 ecommerce_etl/
 ├── data/
-│   ├── raw/          # Source CSVs from Kaggle
-│   └── output/       # Parquet + CSV outputs
-├── src/
-│   ├── ingestion.py       # Loads CSVs into Spark DataFrames
-│   ├── cleaning.py        # Null handling, deduplication, filtering
-│   ├── transformation.py  # Joins, feature engineering, caching
-│   ├── aggregation.py     # Business-level aggregations
-│   └── main.py            # Orchestrates full pipeline
-└── notebooks/
-    └── exploration.ipynb  # Initial data exploration
+│   ├── raw/               # Source CSVs from Kaggle (not tracked)
+│   └── output/            # Parquet + CSV outputs (not tracked)
+├── notebooks/
+│   └── ecommerce_etl_pipeline.ipynb  # Full pipeline + visualisations
+└── src/
+    ├── ingestion.py       # Loads CSVs into Spark DataFrames
+    ├── cleaning.py        # Null handling, deduplication, filtering
+    ├── transformation.py  # Joins, feature engineering, caching
+    ├── aggregation.py     # Business-level aggregations
+    └── main.py            # Orchestrates full pipeline
 ```
 
 ## Dataset
@@ -43,20 +49,6 @@ Place the CSV files in `data/raw/` before running.
 | Customers | 99,441 |
 | Payments | 103,886 |
 | Items | 112,650 |
-
-## Data Model
-
-- orders (order_id, customer_id, order_purchase_timestamp, order_delivered_customer_date, order_estimated_delivery_date)
-- customers (customer_id, customer_state)
-- payments (order_id, payment_value)
-- order_items (order_id, price, freight_value)
-
-## Why PySpark?
-
-- Dataset size exceeds 100MB with multiple relational tables
-- Efficient distributed joins and aggregations
-- Lazy evaluation optimizes execution plan
-- Scales beyond single-machine Pandas workflows
 
 ## Pipeline Stages
 
@@ -81,7 +73,6 @@ Place the CSV files in `data/raw/` before running.
   - `was_late` — boolean flag for late deliveries
   - `order_value_bucket` — low / medium / high / premium
   - `purchase_year`, `purchase_month` — for trend analysis
-- Caches master DataFrame in memory for faster downstream aggregations
 
 **4. Aggregation**
 - Revenue by state (total, count, average order value)
@@ -135,9 +126,10 @@ python src/main.py
 | Tool | Purpose |
 |---|---|
 | PySpark 3.x | Distributed data processing |
-| Pandas | Data exploration |
+| Pandas | Data exploration and visualisation prep |
+| Matplotlib | Business KPI visualisations |
 | PyArrow | Parquet file support |
-| Jupyter | Initial data exploration |
+| Jupyter / Kaggle | Notebook environment |
 
 ## Future Improvements
 
