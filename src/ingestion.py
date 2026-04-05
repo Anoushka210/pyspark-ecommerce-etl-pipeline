@@ -1,4 +1,8 @@
 from pyspark.sql import SparkSession
+from schema import (
+    ORDERS_SCHEMA, CUSTOMERS_SCHEMA,
+    PAYMENTS_SCHEMA, ITEMS_SCHEMA
+)
 
 
 def create_spark_session():
@@ -13,19 +17,19 @@ def create_spark_session():
 def load_raw_data(spark, raw_path):
     orders = spark.read.csv(
         f"{raw_path}/olist_orders_dataset.csv",
-        header=True, inferSchema=True
+        header=True, schema=ORDERS_SCHEMA
     )
     customers = spark.read.csv(
         f"{raw_path}/olist_customers_dataset.csv",
-        header=True, inferSchema=True
+        header=True, schema=CUSTOMERS_SCHEMA
     )
     payments = spark.read.csv(
         f"{raw_path}/olist_order_payments_dataset.csv",
-        header=True, inferSchema=True
+        header=True, schema=PAYMENTS_SCHEMA
     )
     items = spark.read.csv(
         f"{raw_path}/olist_order_items_dataset.csv",
-        header=True, inferSchema=True
+        header=True, schema=ITEMS_SCHEMA
     )
     return orders, customers, payments, items
 
