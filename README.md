@@ -134,7 +134,7 @@ python src/main.py
 ## Future Improvements
 
 - Integrate with Apache Airflow for pipeline scheduling and monitoring
-- Add explicit schema enforcement using `StructType` instead of `inferSchema`
+- ~~Add explicit schema enforcement using `StructType` instead of `inferSchema`~~ **Done**
 - Write output to a cloud data warehouse such as BigQuery or Redshift
 - Build an analytics dashboard using Power BI or Tableau
 - Deploy on Databricks for fully managed Spark cluster execution
